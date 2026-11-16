@@ -7,9 +7,12 @@ const coinsEl = document.querySelector("#coins");
 const refreshEl = document.querySelector("#refresh");
 const errorEl = document.querySelector("#error");
 
-
 const formatPrice = (price) => {
-  return price?.toLocaleString("en-US", {
+  if (price == null) {
+    return "N/A";
+  }
+
+  return price.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
@@ -18,7 +21,11 @@ const formatPrice = (price) => {
 };
 
 const formatPriceChange = (price) => {
-  return price?.toLocaleString("en-US", {
+  if (price == null) {
+    return "N/A";
+  }
+
+  return price.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
     signDisplay: "exceptZero",
@@ -51,7 +58,9 @@ const createCoinElement = (coin) => {
   symbolEl.classList.add("coin-symbol");
   currentPriceEl.classList.add("coin-price");
 
-  if (coin.price_change_24h > 0) {
+  if (coin.price_change_24h == null) {
+    priceChange24hEl.classList.add("not-available");
+  } else if (coin.price_change_24h > 0) {
     priceChange24hEl.classList.add("price-up");
   } else {
     priceChange24hEl.classList.add("price-down");
@@ -65,7 +74,6 @@ const createCoinElement = (coin) => {
   return coinEl;
 };
 
-
 const updateUI = () => {
   coinsEl.innerHTML = "";
 
@@ -77,9 +85,9 @@ const updateUI = () => {
 };
 
 const startAutoRefresh = () => {
-  setInterval(fetchCoinData, REFRESH_INTERVAL_MS);
+  clearInterval(refreshTimerId);
+  refreshTimerId = setInterval(fetchCoinData, REFRESH_INTERVAL_MS);
 };
-
 
 const fetchCoinData = async () => {
   refreshEl.classList.remove("hidden");
@@ -100,7 +108,6 @@ const fetchCoinData = async () => {
     refreshEl.classList.add("hidden");
 
     updateUI();
-
   } catch (error) {
     console.error(error.message);
     refreshEl.classList.add("hidden");

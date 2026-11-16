@@ -60,6 +60,8 @@ const createCoinElement = (coin) => {
 
   if (coin.price_change_24h == null) {
     priceChange24hEl.classList.add("not-available");
+  } else if (Math.round(coin.price_change_24h * 100) === 0) {
+    priceChange24hEl.classList.add("price-flat");
   } else if (coin.price_change_24h > 0) {
     priceChange24hEl.classList.add("price-up");
   } else {

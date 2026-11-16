@@ -161,7 +161,8 @@ h1 {
 
 .price-up,
 .price-down,
-.not-available {
+.not-available,
+.price-flat {
   font-size: 0.85rem;
   font-weight: 700;
   padding: 4px 10px;
@@ -173,7 +174,8 @@ h1 {
   text-align: center;
 }
 
-.not-available {
+.not-available,
+.price-flat {
   color: #999cab;
   background-color: rgba(153, 156, 171, 0.14);
 }

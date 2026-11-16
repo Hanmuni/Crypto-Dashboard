@@ -17,6 +17,10 @@
     <header class="dashboard-header">
       <h1>Crypto Dashboard</h1>
       <div class="header-badge"><span class="pulse-dot"></span> Live Feed</div>
+      <span class="loader" id="refresh"></span>
+      <p id="error" class="error-msg hidden">
+        Failed to load data. Please try again later.
+      </p>
     </header>
     <div class="coins" id="coins"></div>
   </body>
